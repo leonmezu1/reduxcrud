@@ -37,7 +37,7 @@ h1 a.text-light:hover {
   flex: 1;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
   .navbar .btn {
     flex: 0 1 auto;
   }
@@ -47,12 +47,12 @@ h1 a.text-light:hover {
   margin: 1rem 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
   .acciones {
     margin: 0;
   }
 }
 
-.acciones > * {
+.acciones>* {
   flex: 1;
 }
