@@ -1,8 +1,8 @@
 {
   "productos": [
     {
-      "nombre": "Jugo de Fresa",
-      "precio": "200",
+      "nombre": "Jugo de Tamarindo Radioactivo",
+      "precio": "100",
       "id": 5
     },
     {
@@ -24,6 +24,31 @@
       "nombre": "Pericos",
       "precio": 300,
       "id": 9
+    },
+    {
+      "nombre": "Pixel 5",
+      "precio": 400,
+      "id": 10
+    },
+    {
+      "nombre": "Jugo de Papaya",
+      "precio": 500,
+      "id": 11
+    },
+    {
+      "nombre": "Jugo de Mipalo",
+      "precio": 700,
+      "id": 12
+    },
+    {
+      "nombre": "Jugo de Tamarindo Ultra Radioactivo",
+      "precio": "15000",
+      "id": 13
+    },
+    {
+      "nombre": "Juguito Rico",
+      "precio": 500,
+      "id": 14
     }
   ]
 }

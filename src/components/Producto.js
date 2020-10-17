@@ -19,7 +19,7 @@ const Producto = ({ producto }) => {
 
   // confirmar si se desea eliminar el producto
 
-  const confirmarEliminarProducto = (id) => {
+  const confirmarEliminarProducto = id => {
     Swal.fire({
       title: "¿Estás seguro de que deseas eliminar este producto?",
       text: "¡No podrás revertir los cambios!",
@@ -29,7 +29,7 @@ const Producto = ({ producto }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, ¡bórralo!",
       cancelButtonText: "Cancelar",
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
         Swal.fire("¡Borrado!", "El producto ha sido borrado.", "success");
         // pasar al usuario
@@ -40,7 +40,7 @@ const Producto = ({ producto }) => {
 
   // Redireccion programada
 
-  const redirecionarEdicion = (id) => {
+  const redirecionarEdicion = id => {
     dispatch(obtenerProductoEditarAction(id));
     history.push(`/productos/editar/${id}`);
   };

@@ -9,6 +9,7 @@ import {
   PRODUCTO_ELIMINAR_EXITO,
   PRODUCTO_ELIMINAR_ERROR,
   OBTENER_PRODUCTO_EDITAR,
+  COMENZAR_EDICION_PRODUCTO,
   PRODUCTO_EDITAR_EXITO,
   PRODUCTO_EDITAR_ERROR,
 } from "../types";
@@ -25,14 +26,14 @@ const agregarProducto = () => ({
 
 // Si el producto se guarda en la base de datos
 
-const agregarProductoExito = (producto) => ({
+const agregarProductoExito = producto => ({
   type: AGREGAR_PRODUCTO_EXITO,
   payload: producto,
 });
 
 // Si hubo un error
 
-const agregarProductoError = (estado) => ({
+const agregarProductoError = estado => ({
   type: AGREGAR_PRODUCTO_ERROR,
   payload: estado,
 });
@@ -45,21 +46,21 @@ const descargarProductos = () => ({
 });
 
 // Si se descargaron los productos exitosamente
-const descargarProductosExito = (productos) => ({
+const descargarProductosExito = productos => ({
   type: COMENZAR_DESCARGA_PRODUCTOS_EXITO,
   payload: productos,
 });
 
 // Si hubo un error a la hora de descargar los productos
 
-const descargarProductosError = (estado) => ({
+const descargarProductosError = estado => ({
   type: COMENZAR_DESCARGA_PRODUCTOS_ERROR,
   payload: estado,
 });
 
 // Selecciona y elimina el producto
 
-const obtenerProductoEliminar = (id) => ({
+const obtenerProductoEliminar = id => ({
   type: OBTENER_PRODUCTO_ELIMINAR,
   payload: id,
 });
@@ -68,26 +69,58 @@ const eliminarProductoExito = () => ({
   type: PRODUCTO_ELIMINAR_EXITO,
 });
 
-const eliminarProductoError = (estado) => ({
+const eliminarProductoError = estado => ({
   type: PRODUCTO_ELIMINAR_ERROR,
   payload: estado,
 });
 
 // Coloca un producto en edicion
 
-const obtenerProductoEditar = (id) => ({
+const obtenerProductoEditar = id => ({
   type: OBTENER_PRODUCTO_EDITAR,
   payload: id,
 });
 
-export const obtenerProductoEditarAction = (id) => {
-  return (dispatch) => {
+// editar producto
+
+const editarProducto = producto => ({
+  type: COMENZAR_EDICION_PRODUCTO,
+  payload: producto,
+});
+
+const editarProductoExito = producto => ({
+  type: PRODUCTO_EDITAR_EXITO,
+  payload: producto,
+});
+
+const editarProductoError = estado => ({
+  type: PRODUCTO_EDITAR_ERROR,
+  payload: estado,
+});
+
+export const editarProductoAction = producto => {
+  return async dispatch => {
+    dispatch(editarProducto(producto));
+
+    try {
+      await clienteAxios.put(`/productos/${producto.id}`, producto);
+      dispatch(editarProductoExito(producto));
+    } catch (e) {
+      // Alertar
+      Swal.fire({ icon: "error", title: "Hubo un error", text: e });
+      dispatch(editarProductoError(true));
+    }
+  };
+};
+
+export const obtenerProductoEditarAction = id => {
+  return dispatch => {
     dispatch(obtenerProductoEditar(id));
   };
 };
 
-export const borrarProductoAction = (id) => {
-  return async (dispatch) => {
+export const borrarProductoAction = id => {
+  return async dispatch => {
     dispatch(obtenerProductoEliminar(id));
 
     try {
@@ -102,7 +135,7 @@ export const borrarProductoAction = (id) => {
 };
 
 export const obtenerProductosAction = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     dispatch(descargarProductos());
     const respuesta = await clienteAxios.get("/productos");
     try {
@@ -117,8 +150,8 @@ export const obtenerProductosAction = () => {
   };
 };
 
-export const crearNuevoProductoAction = (producto) => {
-  return async (dispatch) => {
+export const crearNuevoProductoAction = producto => {
+  return async dispatch => {
     dispatch(agregarProducto());
 
     try {

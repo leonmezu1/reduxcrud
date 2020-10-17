@@ -13,9 +13,9 @@ const Productos = () => {
   }, [dispatch]);
 
   // obtener el state
-  const productos = useSelector((state) => state.productos.productos);
-  const error = useSelector((state) => state.productos.error);
-  const cargando = useSelector((state) => state.productos.loading);
+  const productos = useSelector(state => state.productos.productos);
+  const error = useSelector(state => state.productos.error);
+  const cargando = useSelector(state => state.productos.loading);
 
   return (
     <Fragment>
@@ -43,7 +43,7 @@ const Productos = () => {
               <td>No hay productos</td>
             </tr>
           ) : (
-            productos.map((producto) => (
+            productos.map(producto => (
               <Producto producto={producto} key={producto.id} />
             ))
           )}

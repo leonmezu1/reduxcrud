@@ -33,12 +33,14 @@ export default (state = initialState, action) => {
     case AGREGAR_PRODUCTO_EXITO:
       return {
         ...state,
+        error: null,
         loading: false,
         productos: [...state.productos, action.payload],
       };
     case AGREGAR_PRODUCTO_ERROR:
     case COMENZAR_DESCARGA_PRODUCTOS_ERROR:
     case PRODUCTO_ELIMINAR_ERROR:
+    case PRODUCTO_EDITAR_ERROR:
       return {
         ...state,
         loading: false,
@@ -59,6 +61,7 @@ export default (state = initialState, action) => {
     case PRODUCTO_ELIMINAR_EXITO:
       return {
         ...state,
+        error: null,
         productos: state.productos.filter(
           (producto) => producto.id !== state.productoeliminar
         ),
@@ -68,6 +71,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         productoeditar: action.payload,
+      };
+    case PRODUCTO_EDITAR_EXITO:
+      return {
+        ...state,
+        error: null,
+        productoeditar: null,
+        productos: state.productos.map((producto) =>
+          producto.id === action.payload.id
+            ? (producto = action.payload)
+            : producto
+        ),
       };
     default:
       return state;
